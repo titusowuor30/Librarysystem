@@ -1,0 +1,43 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+
+        <div class="row">
+            <div class="card mx-auto mt-5" style="width: 24rem;">
+                <img src="{% static 'styles/img/login-img.svg' %}" class="card-img-top" alt="login image">
+                <div class="card-body">
+                <h5 class="card-title">Have an account?</h5>
+                <form action="." method="post" >
+                    {% csrf_token %}
+                <div class="mb-3 col-md-12 col-sm-12 col-xs-12">
+                    {{form.as_p}}
+                </div>
+                <div class="row">
+                    <div class="col-auto">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="autoSizingCheck">
+                            <label class="form-check-label" for="autoSizingCheck">
+                            Remember me
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                      <a href="" class="card-link text-success">Forgot Password?</a>
+                    </div>     
+                    
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button class="btn btn-success">login</button>
+                </div>
+                
+                </form>
+                </div>
+                <div class="card-footer text-muted">
+                    Don't have an account? <a href="{% url 'singup' %}" class="card-link">Sign Up</a>
+                </div>
+            </div>
+          </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,262 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'styles/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="{% static 'styles/css/mdb.min.css' %}" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="{% static 'styles/css/style.min.css' %}" rel="stylesheet">
+    <link href="{% static 'styles/main.css' %}" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <script src="{% static 'scripts/main.js' %}"></script>
+    <style type="text/css">
+
+    html,
+    body,
+    header,
+    .carousel {
+      height: 60vh;
+    }
+
+    @media (max-width: 740px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+    @media (min-width: 800px) and (max-width: 850px) {
+
+      html,
+      body,
+      header,
+      .carousel {
+        height: 100vh;
+      }
+    }
+
+@keyframes show-toast{
+0% {bottom -100%;}
+20% {bottom 50%;}
+80% {bottom 50%;}
+100% {bottom -100%;}
+}
+
+.notification .is-toast{
+position:fixed;
+bottom:100%;
+right:20px;
+animation-name:show-toast;
+animation-name:5s;
+}
+.box{
+border-top-left-radius: 10%;
+border-top-right-radius: 50%;
+border-bottom-left-radius: 10%;
+border-bottom-right-radius: 80%;
+}
+
+    </style>
+</head>
+<body class="box">
+
+<!-- Navbar -->
+<nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+    <div class="container">
+
+        <!-- Brand -->
+        <a class="navbar-brand waves-effect" href="{% url 'frontpage' %}">
+            <strong class="blue-text">E-Library</strong>
+        </a>
+
+        <!-- Collapse -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Links -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            <!-- Left -->
+            <ul class="navbar-nav mr-auto">
+                {% if request.user.is_authenticated %}
+                <li class="nav-item active">
+                    <a class="nav-link waves-effect" href="" style="color:blue;">Books
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                {% else %}
+                <li class="nav-item active">
+                    <a class="nav-link waves-effect" href="">Admin
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+
+            <!-- Right -->
+            <ul class="navbar-nav nav-flex-icons">
+                <li class="nav-item">
+                    <a href="{}" class="nav-link waves-effect">
+                        <span class="badge red z-depth-1 mr-1"></span>
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="clearfix d-none d-sm-inline-block"> my books </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://www.facebook.com/mdbootstrap" class="nav-link waves-effect" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </li>
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="{% url 'logout' %}" class="nav-link">
+                        <i class=""></i>Hello, <b><span style="color:pink;font-weight:bold;">{{request.user.username}}!</span></b>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{% url 'logout' %}" class="nav-link"
+                       target="_blank">
+                        <i class="" style="color:red;font-weight:bold;text-decoration:underline;">LogOut</i>
+                    </a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a href="{% url 'login' %}" class="nav-link">
+                        <i class="" style="color:blue;font-weight:bold;text-decoration:underline;">LogIn</i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'singup' %}" class="nav-link ">
+                        <i class="nav-item" style="color:blue;font-weight:bold;text-decoration:underline;">Sign Up</i>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+
+        </div>
+
+    </div>
+</nav>
+<!-- Navbar -->
+<!-- messages-->
+<div class="mt-2 pt-2">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{message.tags}} alert-dismissable fade show" role="alert">
+        {{message}}
+        <button class="close" type="button" data-dismiss="alert" aria-label="close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+<!-- messages-->
+    {% block content %}
+    {% endblock %}
+</div>
+<!--Footer-->
+<footer class="page-footer text-center font-small mt-4 wow fadeIn">
+
+    <!--Call to action-->
+    <div class="pt-4">
+        <a class="btn btn-outline-white" href="https://mdbootstrap.com/docs/jquery/getting-started/download/"
+           target="_blank"
+           role="button">Download MDB
+            <i class="fas fa-download ml-2"></i>
+        </a>
+        <a class="btn btn-outline-white" href="https://mdbootstrap.com/education/bootstrap/" target="_blank"
+           role="button">Start
+            free tutorial
+            <i class="fas fa-graduation-cap ml-2"></i>
+        </a>
+    </div>
+    <!--/.Call to action-->
+
+    <hr class="my-4">
+
+    <!-- Social icons -->
+    <div class="pb-4">
+        <a href="https://www.facebook.com/mdbootstrap" target="_blank">
+            <i class="fab fa-facebook-f mr-3"></i>
+        </a>
+
+        <a href="https://twitter.com/MDBootstrap" target="_blank">
+            <i class="fab fa-twitter mr-3"></i>
+        </a>
+
+        <a href="https://www.youtube.com/watch?v=7MUISDJ5ZZ4" target="_blank">
+            <i class="fab fa-youtube mr-3"></i>
+        </a>
+
+        <a href="https://plus.google.com/u/0/b/107863090883699620484" target="_blank">
+            <i class="fab fa-google-plus-g mr-3"></i>
+        </a>
+
+        <a href="https://dribbble.com/mdbootstrap" target="_blank">
+            <i class="fab fa-dribbble mr-3"></i>
+        </a>
+
+        <a href="https://pinterest.com/mdbootstrap" target="_blank">
+            <i class="fab fa-pinterest mr-3"></i>
+        </a>
+
+        <a href="https://github.com/mdbootstrap/bootstrap-material-design" target="_blank">
+            <i class="fab fa-github mr-3"></i>
+        </a>
+
+        <a href="http://codepen.io/mdbootstrap/" target="_blank">
+            <i class="fab fa-codepen mr-3"></i>
+        </a>
+    </div>
+    <!-- Social icons -->
+
+    <!--Copyright-->
+    <div class="footer-copyright py-3">
+        © 2019 Copyright:
+        <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> MDBootstrap.com </a>
+    </div>
+    <!--/.Copyright-->
+
+</footer>
+<!--/.Footer-->
+
+<!-- SCRIPTS -->
+<!-- JQuery -->
+<script type="text/javascript" src="{% static 'scripts/js/jquery-3.4.1.min.js' %}"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="{% static 'scripts/js/popper.min.js' %}"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="{% static 'scripts/js/bootstrap.min.js' %}"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="{% static 'scripts/js/mdb.min.js' %}"></script>
+<!-- Initializations -->
+<script type="text/javascript">
+    // Animations initialization
+    new WOW().init();
+
+
+</script>
+</body>
+</html>

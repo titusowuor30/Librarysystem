@@ -1,0 +1,55 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<!--Main layout-->
+
+<main>
+    <!--Navbar-->
+     {% include 'core/parts/category_nav.html' %}
+    <!--/.Navbar-->
+    <!--Section: Products v.3-->
+    <section class="text-center mb-4 box">
+
+        <!--Grid row-->
+        <div class="row wow fadeIn">
+             {% for book in page_obj %}
+            {% include 'books/parts/list_item.html' %}
+            {% endfor %}
+        </div>
+        <!--Grid row-->
+
+    </section>
+    <!--Section: Products v.3-->
+    <!--Pagination-->
+    <nav class="d-flex justify-content-center wow fadeIn">
+        <ul class="pagination pg-blue">
+
+            <!--Arrow left-->
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link page-link badge badge-primary" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                     <span aria-hidden="true" class="badge badge-secondary"><strong><<</strong></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+           {% endif %}
+            <li class="page-item">
+                <a class="page-link badge badge-primary" href="?page={{ page_obj.number }}">{{ page_obj.number }}
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+             {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link page-link badge badge-primary" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true" class="badge badge-secondary"><strong>>></strong></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+              {% endif %}
+        </ul>
+    </nav>
+    <!--Pagination-->
+
+</main>
+<!--Main layout-->
+{% endblock %}

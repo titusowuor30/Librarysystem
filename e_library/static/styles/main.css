@@ -1,0 +1,25 @@
+
+.navbar{
+text-transform:uppercase;
+}
+.navbar .is-dark{
+background:#444
+}
+
+.footer a{
+margin-bottom:15px;
+display:inline-block;
+color:#444
+}
+
+
+.input, .button{
+border-radius:0;
+}
+
+.product-list-item .box .subtitle{
+margin-bottom:0;
+}
+.product-list-item .box .price{
+color:#888;
+}
