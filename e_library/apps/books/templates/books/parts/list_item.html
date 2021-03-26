@@ -7,7 +7,6 @@
         <h2 class="subtitle">Title:{{ book.title }}</h2>
         <h3 class="price is-size-6 mb-5">Author:{{ book.author }}</h3>
         <hr>
-
-        <a href="" class="button is-dark is-uppercase">View</a>
+        <a href="{% url 'book-detail' book.id %}" class="button is-dark is-uppercase">View</a>
     </div>
 </div>
