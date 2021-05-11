@@ -1,0 +1,42 @@
+{% extends 'management/base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+  <form method="get">
+    <div class="well">
+        <h4 style="margin-top: 0">Filter</h4>
+        <div class="row">
+            <div class="form-group col-sm-4 col-md-3">
+                {{ filter.form.name.label_tag }}
+                {% render_field filter.form.name class="form-control" %}
+            </div>
+            <div class="form-group col-sm-4 col-md-3">
+                {{ filter.form.roll_no.label_tag }}
+                {% render_field filter.form.roll_no class="form-control" %}
+            </div>
+        </div>
+        <button class="btn btn-rounded btn-sm my-0 bg-steel" type="submit">Search</button>
+    </div>
+  </form>
+  <br>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Student Name</th>
+        <th>Student Roll Number</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for student in filter.qs %}
+            <tr>
+                <td>{{ student.name }}</td>
+                <td>{{ student.roll_no }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="5">No Student found</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+ </table>
+{% endblock %}

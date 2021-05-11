@@ -55,10 +55,10 @@ class Libman(models.Model):
 
 class Profile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile')
-    image=models.ImageField(upload_to='uploads/users/%Y%m%d/')
+    image=models.ImageField(upload_to='uploads/users/%Y%m%d/',default='uploads/users/default.jpg')
     email = models.EmailField(max_length=100)
-    website=models.URLField(max_length=255)
-    biography=models.TextField(max_length=255)
+    website=models.URLField(max_length=255,null=True,blank=True)
+    biography=models.TextField(max_length=255,null=True,blank=True)
 
     def __str__(self):
         return self.user.username

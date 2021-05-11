@@ -1,0 +1,7 @@
+{% extends "core/base.html" %}
+{% block content %}
+    <div class=" bg bg-white">
+        <h1>Hi,{{ request.user }} <br> {{ message }} </h1>
+        <a href="{% url 'frontpage' %}"><button class="btn btn-rounded btn-sm my-0 bg-steel" type="submit">Okay</button></a>
+    </div>
+{% endblock %}

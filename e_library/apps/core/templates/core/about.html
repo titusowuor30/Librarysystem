@@ -1,0 +1,141 @@
+
+
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="top-content">
+    <div class="container-fluid">
+      <h2>Featured New Release Books</h2>
+        <div class="top-content">
+  <div class="container-fluid">
+    <h2>Best Seller in Books</h2>
+      <div id="carousel-example_second" class="carousel slide" data-ride="">
+          <div class="carousel-inner row w-100 mx-auto" role="listbox">
+              {% for book in books_bestseller %}
+                  <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 {% if forloop.counter0 == 0 %} active {% else %} {% endif %}">
+                    <div class="card mb-2">
+                      <img src="{{ book.getImageURL }}" class="card-img-top mx-auto d-block" alt="img1" style="height: 240px;">
+                      <div class="card-body">
+                        <h4>{{ book.title }}</h4>
+                        <p class="card-text">{{ book.author }}</p>
+                        <a class="btn btn-primary" href= "">Click to slide</a>
+                      </div>
+                    </div>
+                  </div>
+              {% endfor %}
+          </div>
+          <a class="carousel-control-prev" href="#carousel-example_second" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carousel-example_second" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+          </a>
+      </div>
+  </div>
+</div>
+    </div>
+</div>
+
+
+<br>
+
+<div class="top-content">
+  <div class="container-fluid">
+    <h2>Best Seller in Books</h2>
+      <div id="carousel-example_first" class="carousel slide" data-ride="">
+          <div class="carousel-inner row w-100 mx-auto" role="listbox">
+              {% for book in books_bestseller %}
+                  <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 {% if forloop.counter0 == 0 %} active {% else %} {% endif %}">
+                    <div class="card mb-2">
+                      <img src="{{ book.getImageURL }}" class="card-img-top mx-auto d-block" alt="img1" style="height: 240px;">
+                      <div class="card-body">
+                        <h4>{{ book.title }}</h4>
+                        <p class="card-text">{{ book.author }}</p>
+                        <a class="btn btn-primary" href= "">Click to slide</a>
+                      </div>
+                    </div>
+                  </div>
+              {% endfor %}
+          </div>
+          <a class="carousel-control-prev" href="#carousel-example_second" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carousel-example_second" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+<br>
+
+<div class="top-content">
+  <div class="container-fluid">
+    <h2>Most Wished for in Books</h2>
+      <div id="carousel-example_third" class="carousel slide" data-ride="">
+          <div class="carousel-inner row w-100 mx-auto" role="listbox">
+              {% for book in books_mostwished %}
+                  <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 {% if forloop.counter0 == 0 %} active {% else %} {% endif %}">
+                    <div class="card mb-2">
+                      <img src="{{ book.getImageURL }}" class="card-img-top mx-auto d-block" alt="img1" style="height: 240px;">
+                      <div class="card-body">
+                        <h4>{{ book.title }}</h4>
+                        <p class="card-text">{{ book.author }}</p>
+                        <a class="btn btn-primary" href= "">Click to slide</a>
+                      </div>
+                    </div>
+                  </div>
+              {% endfor %}
+          </div>
+          <a class="carousel-control-prev" href="#carousel-example_third" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carousel-example_third" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+<br>
+
+<div class="top-content">
+  <div class="container-fluid">
+    <h2>Educational Books</h2>
+      <div id="carousel-example_fourth" class="carousel slide" data-ride="">
+          <div class="carousel-inner row w-100 mx-auto" role="listbox">
+              {% for book in books_education %}
+                  <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 {% if forloop.counter0 == 0 %} active {% else %} {% endif %}">
+                    <div class="card mb-2">
+                      <img src="{{ book.getImageURL }}" class="card-img-top mx-auto d-block" alt="img1" style="height: 240px;">
+                      <div class="card-body">
+                        <h4>{{ book.title }}</h4>
+                        <p class="card-text">{{ book.author }}</p>
+                        <a class="btn btn-primary" href= "">Click to slide</a>
+                      </div>
+                    </div>
+                  </div>
+              {% endfor %}
+          </div>
+          <a class="carousel-control-prev" href="#carousel-example_fourth" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carousel-example_fourth" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+          </a>
+      </div>
+  </div>
+</div>
+
+
+{% endblock %}

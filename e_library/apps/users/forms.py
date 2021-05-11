@@ -64,3 +64,41 @@ class LibmanSignUpForm(UserCreationForm):
         user.groups.add(group)
         libman.save()
         return user
+
+
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username','first_name','last_name')
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model=Profile
+        fields=('image','email','website','biography')
+
+
+class PasswordResetForm(forms.Form):
+    """
+    Password reset form
+    """
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'required': ''}), min_length=8, max_length=50,
+        error_messages={'required': 'Please enter your new password.'})
+    confirm_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'required': ''}), max_length=50,
+        error_messages={'required': 'Please re-enter your new password for confirmation.'})
+
+    def clean_confirm_password(self):
+        confirm_password = self.cleaned_data['confirm_password']
+        if 'password' in self.cleaned_data and self.cleaned_data['password'] != confirm_password:
+            raise forms.ValidationError("Your new password and confirm password didn't matched.")
+        return confirm_password
+
+
+class ChangePasswordForm(PasswordResetForm):
+    """
+    Change password form
+    """
+    current_password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'required': ''}), max_length=50,
+        error_messages={'required': 'Please enter your current password.'})

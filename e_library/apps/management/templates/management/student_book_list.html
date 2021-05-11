@@ -1,26 +1,57 @@
-{% extends "base_generic.html" %}
+{% extends "core/base.html" %}
 
 {% block content %}
-    <h1>My Book List</h1>
-
+<div class="box">
+    {% if request.user.is_superuser %}
+    <h1 class="title"><strong>Books Due</strong></h1>
+    {% else %}
+    <h1 class="title"><strong>My Books</strong></h1>
+    {% endif %}
     {% if book_list %}
 
     <div class="row mx-auto">
-      {% for book in book_list %}
-
-    <div class="mx-3 col-md-4 col-lg-3 mb-4 shadow p-2 mb-4 bg-white rounded">
-      <div class="card mx-auto text-center ">
-      <img class="card-img-top" src="{{ book.pic.url }}" alt="Sample Title" height="400px" width="400px">
-        <div class="card-body">
-          <h2 class="card-title">    <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}})</h2>
+        <div class="mx-3 col-md-4 col-lg-3 mb-4 shadow p-2 mb-4 bg-white rounded">
+            <div class="card mx-auto text-center ">
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th><strong>Title</strong></th>
+                        <th><strong>Author</strong></th>
+                        <th><strong>Genre</strong></th>
+                        <th><strong>Issue date</strong></th>
+                        <th><strong>Return data</strong></th>
+                        <th><strong>Late days</strong></th>
+                        <th><strong>Fine</strong></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for book in book_list %}
+                    <tr>
+                        <td>{{book.title}}</td>
+                        <td>{{book.author}}</td>
+                        <td>{{book.genre}}</td>
+                        <td>{{book.borrower.issue_date}}</td>
+                        <td>{{book.borrower.return_date}}</td>
+                        <td>{{book.borrower.charges.late_days}}</td>
+                        <td>{{book.borrower.charges.charge}}</td>
+                        {% if request.user.is_superuser %}
+                        <td><a href="" class=" px0"><i class="far fa-edit text-primary fa-lg">Return</i></a></td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
-      </div>
     </div>
-      {% endfor %}
-    </div>
-    {% else %}
-      <p class=" bg bg-white">Yo haven'n borrowed any book(s).</p>
-
-    {% endif %}
+</div>
+{% else %}
+{% if request.user.is_superuser %}
+<p class=" bg bg-white">No books due yet!</p>
+{% else %}
+<p class=" bg bg-white">Yo haven't borrowed any book(s) yet!</p>
+{% endif %}
+{% endif %}
+</div>
 {% endblock %}
 

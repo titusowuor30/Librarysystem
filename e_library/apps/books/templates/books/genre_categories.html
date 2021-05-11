@@ -1,0 +1,18 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ g.name }} | {% endblock %}
+
+{% block content %}
+<div class="columns is-multiline mb-2">
+    <div class="column is-12 has-text-centered mt-2 mb-2">
+        <!--Navbar-->
+        {% include 'core/parts/category_nav.html' %}
+        <!--/.Navbar-->
+        <h2 class="is-size-3"><strong>{{ g.name }}</strong></h2>
+    </div>
+
+    {% for book in g.books.all %}
+    {% include 'books/parts/list_item.html' %}
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+{% block content %}
+
+
+
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+        <tr>
+            <td>Student Name</td>
+            <td>Reg No</td>
+            <td>Total Books due</td>
+            <td>Email</td>
+            <td>Contact Number</td>
+             {% if request.user.is_superuser %}
+                <td><a class="btn btn-primary" href="{% url 'student_signup' %}">Add Student</a></td>
+                {% endif %}
+        </tr>
+    </thead>
+    <tbody id="myTable">
+        {% for s in students %}
+            <tr>
+                <td><a class="link blue-text" href="" >{{ s.fname }} {{s.lname}}</a></td>
+                <td>{{ s.reg_no }}</td>
+                <td>{{ s.books_due }}</td>
+                <td>{{ s.email }}</td>
+                <td>{{ s.phone }}</td>
+                <td>
+                    <a href="{% url 'student-edit' s.id %}" class="text-secondary px-0"><i class="fas fa-edit"></i>Edit
+                    </a>
+                    <a class=" text-secondary px-0" href=""><i class="far fa-trash-alt fa-lg text-danger float-right">Delete acccount</i>
+                    </a>
+                </td>
+                <td><strong><a href="{% url 'student-detail' s.id %}"  style="color:blue;text-decoration:underline;">View</a></strong></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+{% endblock %}

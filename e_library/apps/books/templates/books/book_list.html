@@ -1,0 +1,42 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<h1>All Books</h1>
+{% if books %}
+
+<table class="table table-borderless">
+    <thead class="border-bottom font-weight-bold">
+    <tr>
+        <td>Book Name</td>
+        <td>Book Author</td>
+        <td>Genre</td>
+        <td><a href="{% url 'book-create' %}" class="btn btn-primary">Add New</a></td>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for b in books %}
+    <tr>
+        <td>
+            <a class="article-title blue-text" href="{% url 'book-detail' b.id %}">{{ b.title }}</a>
+        </td>
+        <td>{{ b.author }}</td>
+        <td>{{ b.genre.name }}</td>
+        <td><a href="{% url 'book-update' b.id %}" class=" px0"><i class="far fa-edit text-primary fa-lg">Edit</i></a>
+            <form action="{% url 'book-delete' b.id %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <button type="submit">
+                    <i class="far fa-trash-alt text-danger fa-lg float-right">Delete</i>
+                </button>
+            </form>
+        <td><a href="{% url 'book-reviews' b.id %}" class="blue-text" style="text-decoration:underline">reviews</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p class=" bg bg-white">There are no books.</p>
+<h3 class="my-4"><a href="{% url 'book-create' %}" class="btn btn-primary">Add Books</a></h3>
+{% endif %}
+{% endblock %}

@@ -9,6 +9,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <!-- Bootstrap core CSS -->
     <link href="{% static 'styles/css/bootstrap.min.css' %}" rel="stylesheet">
     <!-- Material Design Bootstrap -->
@@ -18,8 +19,12 @@
     <link href="{% static 'styles/main.css' %}" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
+    
     <script src="{% static 'scripts/main.js' %}"></script>
-    <style type="text/css">
+    <style type="text/<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>css">
 
     html,
     body,
@@ -69,97 +74,127 @@ border-bottom-left-radius: 10%;
 border-bottom-right-radius: 80%;
 }
 
+
     </style>
 </head>
-<body class="box">
-
-<!-- Navbar -->
-<nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
-    <div class="container">
-
-        <!-- Brand -->
-        <a class="navbar-brand waves-effect" href="{% url 'frontpage' %}">
-            <strong class="blue-text">E-Library</strong>
-        </a>
-
-        <!-- Collapse -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- Links -->
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-            <!-- Left -->
-            <ul class="navbar-nav mr-auto">
-                {% if request.user.is_authenticated %}
-                <li class="nav-item active">
-                    <a class="nav-link waves-effect" href="" style="color:blue;">Books
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                {% else %}
-                <li class="nav-item active">
-                    <a class="nav-link waves-effect" href="">Admin
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                {% endif %}
-            </ul>
-
-            <!-- Right -->
-            <ul class="navbar-nav nav-flex-icons">
-                <li class="nav-item">
-                    <a href="{}" class="nav-link waves-effect">
-                        <span class="badge red z-depth-1 mr-1"></span>
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="clearfix d-none d-sm-inline-block"> my books </span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://www.facebook.com/mdbootstrap" class="nav-link waves-effect" target="_blank">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                </li>
-                {% if request.user.is_authenticated %}
-                <li class="nav-item">
-                    <a href="{% url 'logout' %}" class="nav-link">
-                        <i class=""></i>Hello, <b><span style="color:pink;font-weight:bold;">{{request.user.username}}!</span></b>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="{% url 'logout' %}" class="nav-link"
-                       target="_blank">
-                        <i class="" style="color:red;font-weight:bold;text-decoration:underline;">LogOut</i>
-                    </a>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <a href="{% url 'login' %}" class="nav-link">
-                        <i class="" style="color:blue;font-weight:bold;text-decoration:underline;">LogIn</i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{% url 'singup' %}" class="nav-link ">
-                        <i class="nav-item" style="color:blue;font-weight:bold;text-decoration:underline;">Sign Up</i>
-                    </a>
-                </li>
-                {% endif %}
-            </ul>
-
+<body class="body-layout">
+<header>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
+        <div class="container">
+            <!-- Brand -->
+            <a class="navbar-brand waves-effect" href="{% url 'frontpage' %}">
+                <strong class="blue-text">E-Library</strong>
+            </a>
+            <!-- Collapse -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    
+                <!-- Left -->
+                <ul class="navbar-nav mr-auto">
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item active">
+                        <a class="nav-link waves-effect" href="{% url 'profile' %}">Profile
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>&nbsp;
+                    <li class="nav-item active">
+                        <a class="nav-link waves-effect" href="{% url 'book-list' %}" style="color:blue;">Books
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>&nbsp;
+                    <li class="nav-item active">
+                        <a class="nav-link waves-effect" href="{% url 'studentlist' %}" style="color:blue;">Students
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>&nbsp;
+                    <li class="nav-item active">
+                        <div class="dropdown">
+                            <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                             Search..
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                              <a class="dropdown-item" href="#">Search Students</a>
+                              <a class="dropdown-item" href="#">Search Books</a>
+                            </div>
+                          </div>
+                    </li>&nbsp;
+                    {% endif %}
+                </ul>
+    
+                <!-- Right -->
+                <ul class="navbar-nav nav-flex-icons">
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item active">
+                        <a class="nav-link waves-effect" href="{% url 'about' %}" style="color:blue;">About
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li> &nbsp;
+                    {% if request.user.is_superuser %}
+                    <li class="nav-item">
+                        <a href="{% url 'borrowers' %}" class="nav-link waves-effect">
+                            <span class="badge red z-depth-1 mr-1"></span>
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="clearfix d-none d-sm-inline-block"> Books Due </span>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a href="{% url 'mybooks' %}" class="nav-link waves-effect">
+                            <span class="badge red z-depth-1 mr-1"></span>
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="clearfix d-none d-sm-inline-block"> My Books </span>
+                        </a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a href="https://www.facebook.com/mdbootstrap" class="nav-link waves-effect" target="_blank">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'logout' %}" class="button is-danger is-uppercase">
+                            <i class=""></i>Hello, <b><span
+                                style="color:pink;font-weight:bold;">{{request.user.username}}!</span></b>
+                        </a>
+                    </li>
+    
+                    <li class="nav-item">
+                        <a href="{% url 'logout' %}" class="nav-link"
+                           target="_blank">
+                            <i class="button is-danger is-uppercase">LogOut</i>
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a href="{% url 'login' %}" class="nav-link">
+                            <i class="button is-info is-uppercase">LogIn</i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'singup' %}" class="nav-link ">
+                            <i class="nav-item" style="color:blue;font-weight:bold;text-decoration:underline;">Sign Up</i>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+    
+            </div>
+    
         </div>
-
-    </div>
-</nav>
-<!-- Navbar -->
-<!-- messages-->
+    </nav>
+    <!-- Navbar -->
+   
+    <!-- messages-->
 <div class="mt-2 pt-2">
     {% if messages %}
     {% for message in messages %}
@@ -173,12 +208,24 @@ border-bottom-right-radius: 80%;
     {% endif %}
 </div>
 <!-- messages-->
-    {% block content %}
-    {% endblock %}
+</header>  
+
+<!--main-->
+<main class="main-layout">
+<article class="article-layout">
+{% block content %}
+{% endblock %}
+</article>
+<aside class="aside-layout">
+    {% include 'core/parts/chatroom.html' %}
+</aside>
+</main>
+<!--eend main-->
+
+
 </div>
 <!--Footer-->
 <footer class="page-footer text-center font-small mt-4 wow fadeIn">
-
     <!--Call to action-->
     <div class="pt-4">
         <a class="btn btn-outline-white" href="https://mdbootstrap.com/docs/jquery/getting-started/download/"
@@ -255,6 +302,7 @@ border-bottom-right-radius: 80%;
 <script type="text/javascript">
     // Animations initialization
     new WOW().init();
+
 
 
 </script>

@@ -1,0 +1,60 @@
+{% extends "core/base.html" %}
+{% block style %}
+    .product-title,  .product-description, .price, .vote, .sizes {
+    margin-bottom: 15px; }
+{% endblock %}
+
+{% block content %}
+    <div class="container bg bg-white">
+
+    <div class="container-fliud">
+    <div class="wrapper row">
+        <div class="details col-6">
+            <h1>Name: {{ student.fname }} {{student.lname}}</h1>
+
+            <p><strong>Id:</strong>{{ student.reg_no }}</p>
+            <p><strong>Contact:</strong> {{ student.phone }}</p>
+            {% if user.is_superuser %}
+            <p><strong>Books due:</strong> {{ student.books_due }}</p>
+                <!-- <a class="btn btn-danger" href="#">Update</a> -->
+                <a class="btn btn-success" href="">Delete</a>
+            {% endif %}
+        </div>
+        <hr>
+    </div>
+    <hr>
+    <hr>
+ {% if user.is_superuser %}
+    {% if bor %}
+        <table class="table table-borderless">
+            <thead class="border-bottom font-weight-bold">
+                <tr>
+                    <td>Book Name</td>
+                    <td>Book Author</td>
+                    <td>Issue Date</td>
+                    <td>Return Date</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for b in bor %}
+                    <tr>
+                        <td>
+                            <a href="{{ book.book.get_absolute_url }}">{{ b.book.title }}</a>
+                        </td>
+                        <td>{{ b.book.author }}</td>
+                        <td>{{ b.issue_date }}</td>
+                        <td>{{ b.return_date }}</td>
+                        <td>               
+                            <a class="btn btn-success" href="{% url 'return-book' student.id %}">Return</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+        <p>There are no books borrowed.</p>
+    {% endif %}
+
+  {% endif %}
+{% endblock %}

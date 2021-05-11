@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #'social_django',
+    'django_filters',
+    'widget_tweaks',
     'crispy_forms',
     'apps.books',
     'apps.core',

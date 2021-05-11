@@ -1,0 +1,25 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+    {% if reviews %}
+      <h1 style="text-decoration:underline;"><strong>Reviews about the Book</strong></h1>
+        {% for r in reviews %}
+        {% if r.review is not "none" %}
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-10">
+                    <p>
+                        <a class="float-left"
+                           href="{% url 'studentlist' %} "><strong>{{ r.user.username }}</strong></a>
+                    </p>
+                    <div class="clearfix"></div>
+                    <p>{{ r.review }}</p>
+                </div>
+            </div>
+        </div>
+            {% endif %}
+     {% endfor %}
+    {% else %}
+      <p class=" bg bg-white">There are no reviews about this book yet!</p>
+    {% endif %}
+{% endblock %}

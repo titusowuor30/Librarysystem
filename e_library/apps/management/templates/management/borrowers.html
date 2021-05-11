@@ -1,0 +1,35 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Borrowers| {% endblock %}
+
+{% block content %}
+<div class="box">
+    {% if bor %}
+    <h1 class="my-4" style="margin-left:250px;"><strong>Books Due</strong></h1>
+    <div class="container">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th><strong>Student</strong></th>
+                <th><strong>Book</strong></th>
+                <th><strong>Action</strong></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for b in bor %}
+            <tr>
+                <td>{{b.student}}</td>
+                <td>{{b.book}}</td>
+                <td><a href="{% url 'return-book' b.book.id %}" class="badge badge-primary is-info is-uppercase"> Return Book</a>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <h3 class="my-4">No borrowers yet!</h3>
+    {% endif %}
+</div>
+{% endblock %}
+

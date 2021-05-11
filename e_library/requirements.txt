@@ -1,0 +1,6 @@
+django-3.1.7
+Pillow
+django-crispy-forms
+six
+taggit
+django-filter

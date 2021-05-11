@@ -1,5 +1,6 @@
 {% extends 'core/base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block content %}
     <div class="container">
 
@@ -11,7 +12,7 @@
                 <form action="." method="post" >
                     {% csrf_token %}
                 <div class="mb-3 col-md-12 col-sm-12 col-xs-12">
-                    {{form.as_p}}
+                    {{form|crispy}}
                 </div>
                 <div class="row">
                     <div class="col-auto">
@@ -23,13 +24,13 @@
                         </div>
                     </div>
                     <div class="col-auto">
-                      <a href="" class="card-link text-success">Forgot Password?</a>
+                      <a href="{% url 'accounts_forgot_password' %}" class="card-link text-success">Forgot Password?</a>
                     </div>     
                     
                 </div>
 
                 <div class="d-grid gap-2">
-                    <button class="btn btn-success">login</button>
+                    <button class="btn btn-success" type="submit">login</button>
                 </div>
                 
                 </form>

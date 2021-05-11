@@ -1,0 +1,19 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Search | {% endblock %}
+
+{% block content %}
+    <div class="columns is-multiline mb-6">
+        <div class="column is-12 has-text-centered mt-6 mb-6">
+            <h2 class="is-size-3">Search</h2>
+            {% if books %}
+            <h3>Search results for "{{ query }}"</h3>
+        </div>
+        {% for book in books %}
+            {% include 'books/parts/list_item.html' %}
+        {% endfor %}
+        {% else %}
+         <h3>No such book  "{{ query }}" in our databases</h3>
+         {% endif %}
+    </div>
+{% endblock %}
