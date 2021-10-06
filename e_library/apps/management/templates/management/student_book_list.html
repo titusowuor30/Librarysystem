@@ -7,8 +7,7 @@
     {% else %}
     <h1 class="title"><strong>My Books</strong></h1>
     {% endif %}
-    {% if book_list %}
-
+    {% if book_list|length > 0 %}
     <div class="row mx-auto">
         <div class="mx-3 col-md-4 col-lg-3 mb-4 shadow p-2 mb-4 bg-white rounded">
             <div class="card mx-auto text-center ">
@@ -20,12 +19,11 @@
                         <th><strong>Genre</strong></th>
                         <th><strong>Issue date</strong></th>
                         <th><strong>Return data</strong></th>
-                        <th><strong>Late days</strong></th>
+                        <th><strong>Count</strong></th>
                         <th><strong>Fine</strong></th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for book in book_list %}
                     <tr>
                         <td>{{book.title}}</td>
                         <td>{{book.author}}</td>
@@ -35,10 +33,9 @@
                         <td>{{book.borrower.charges.late_days}}</td>
                         <td>{{book.borrower.charges.charge}}</td>
                         {% if request.user.is_superuser %}
-                        <td><a href="" class=" px0"><i class="far fa-edit text-primary fa-lg">Return</i></a></td>
+                        <td><a href="{% url 'return-book' book.borrower.id %}" class=" px0"><i class="far fa-edit text-primary fa-lg">Return</i></a></td>
                         {% endif %}
                     </tr>
-                    {% endfor %}
                     </tbody>
                 </table>
             </div>

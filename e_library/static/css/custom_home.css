@@ -1,0 +1,66 @@
+.body {
+    display: flex;
+    overflow:hidden;
+  }
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even){
+      background-color: #f2f2f2
+    }
+
+#cards
+.card-title {
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+    padding-top: 20px;
+  }
+.card-container {
+  display: flex;
+    overflow:hidden;
+  }
+  
+  .card-desc {
+    padding: 10px;
+    text-align: left;
+    font-size: 18px;
+  }
+
+  /*add this it*/
+  .card-image {
+    display: flex;
+  }
+  /*-------------*/
+  
+  div.card-image img {
+    width: 50%;
+    height: auto;
+  }
+  /*add this it*/
+.card-image {
+    display: flex;
+  }
+  /*-------------*/
+  
+  div.card-image img {
+    width: 50%;
+    height: auto;
+  }
+  
+  /* Phone Devices Query */
+  @media only screen and (max-width: 37.5em) {
+    div.card-image img {
+      width: 100%;
+      height: auto;
+    }
+}

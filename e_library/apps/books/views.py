@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect
 from apps.users.models import *
 from .forms import *
-
+from django.contrib import messages
 
 def search(request):
     book_list = Book.objects.all()
@@ -71,12 +71,14 @@ def BookDetailView(request, pk):
 @login_required
 def BookCreate(request):
     if not request.user.is_superuser:
+        messages.warning(request,"You don have permission to add a book")
         return redirect('frontpage')
     form = BookForm()
     if request.method == 'POST':
-        form = BookForm(data=request.POST, files=request.FILES)
+        form = BookForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
+            messages.warning(request,"Book added!")
             return redirect('frontpage')
     return render(request, 'books/book_form.html', locals())
 

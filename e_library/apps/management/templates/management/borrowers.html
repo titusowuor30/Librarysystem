@@ -20,7 +20,7 @@
             <tr>
                 <td>{{b.student}}</td>
                 <td>{{b.book}}</td>
-                <td><a href="{% url 'return-book' b.book.id %}" class="badge badge-primary is-info is-uppercase"> Return Book</a>
+                <td><a href="{% url 'return-book' b.id %}" class="badge badge-primary is-info is-uppercase"> Return Book</a>
                 </td>
             </tr>
             {% endfor %}

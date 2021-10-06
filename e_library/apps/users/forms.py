@@ -32,7 +32,7 @@ class StudentSignUpForm(UserCreationForm):
         student.lname = user.last_name
         student.phone=self.cleaned_data.get('phone')
         student.reg_no=self.cleaned_data.get('reg_no')
-        student.reg_no = self.cleaned_data.get('books_due')
+        student.books_due = self.cleaned_data.get('books_due')
         student.save()
         return user
 

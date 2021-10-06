@@ -17,13 +17,23 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path,include
 from django.conf.urls.static import static
+from apps.core.views import logOut
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 
 urlpatterns = [
+    path('logout/', logOut, name='logout'),
+    # note the override comes before the admin URLs below
+    path('admin/logout/', lambda request: redirect('/logout/', permanent=False)),
     path('admin/', admin.site.urls),
     path('',include('apps.core.urls')),
     path('books/',include('apps.books.urls')),
     path('users/',include('apps.users.urls')),
     path('management/',include('apps.management.urls')),
-
-
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+urlpatterns +=staticfiles_urlpatterns()
+
+admin.site.site_header  =  "E-Library Administration"  
+admin.site.site_title  =  "E-Library admin site"
+admin.site.index_title  =  "E-Library Admin"

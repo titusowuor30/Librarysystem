@@ -1,6 +1,8 @@
 from django.db import models
 from apps.users.models import *
 from django.shortcuts import reverse
+from apps.users.models import Student
+
 class Status(models.Model):
     title=models.CharField(max_length=100);
     slug=models.SlugField(max_length=255)
@@ -39,8 +41,9 @@ class Book(models.Model):
     language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True)
     total_copies = models.IntegerField()
     available_copies = models.IntegerField()
+    borrowing_duration=models.ForeignKey('Borrowing_duration',on_delete=models.CASCADE,default=7,blank=True,null=True,)
     status=models.ForeignKey(Status,blank=True,null=True,on_delete=models.CASCADE,related_name='books')
-    pic=models.ImageField(blank=True, null=True, upload_to='uploads/book_image/%Y%m%d/',default='uploads/users/default.jpg')
+    pic=models.ImageField(blank=True, null=True, upload_to='uploads/book_image/%Y%m%d/',default='uploads/books/default.png')
 
     def getImageURL(self):
         if self.pic.url and hasattr(self.pic,'url'):
@@ -63,10 +66,19 @@ class Book(models.Model):
 class Borrower(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE,related_name='borrowers')
     book = models.ForeignKey(Book, on_delete=models.CASCADE,related_name='borrowers')
-    issue_date = models.DateTimeField(null=True,blank=True)
-    return_date = models.DateTimeField(null=True,blank=True)
+    issue_date = models.DateField(null=True,blank=True)
+    return_date = models.DateField(null=True,blank=True)
     def __str__(self):
         return self.student.fname+" borrowed "+self.book.title
+
+class Borrowing_duration(models.Model):
+        duration_allowed=models.IntegerField(help_text="Enter duration in terms of days")
+
+        def __str__(self):
+            return str(self.duration_allowed)
+
+        class Meta:
+            verbose_name_plural="Set book borrowing duration"            
 
 
 

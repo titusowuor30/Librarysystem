@@ -53,6 +53,9 @@ class Libman(models.Model):
     def __str__(self):
         return self.fname
 
+    class Meta:
+        verbose_name_plural='Librarians'    
+
 class Profile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile')
     image=models.ImageField(upload_to='uploads/users/%Y%m%d/',default='uploads/users/default.jpg')

@@ -1,0 +1,16 @@
+<footer class="main-footer">
+        <div class="float-right d-none d-sm-block">
+        {% block footer_right %}
+            <b>Version</b> {% block version %}0.1{% endblock %}
+        {% endblock %}
+    </div>
+
+    {% block footer_left %}
+    {% block legal %}
+    <strong>Mage with ❤ <a href="https://titusowuorportfolio.herokuapp.com">TDBSoft.</a> &copy; {% now "Y" %}{% if not site %}.{% endif %}
+            
+    </strong> All rights
+    reserved.
+    {% endblock %}
+    {% endblock %}
+</footer>

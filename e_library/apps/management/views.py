@@ -61,12 +61,12 @@ def Borrow(request, pk):
     late_return_charge = Late_return_charge()
     if stu.books_due < 4:
         if bk.available_copies > 2:
-            message = "Your request to borrow a book has been received!"
+            message = f"Your request to borrow {bk.title} a book has been received!"
             borrower = Borrower()
             borrower.student = stu
             borrower.book = bk
-            borrower.issue_date = datetime.datetime.now()
-            borrower.return_date = datetime.date.today() + datetime.timedelta(weeks=3)
+            borrower.issue_date = datetime.date.today()
+            borrower.return_date = datetime.date.today() + datetime.timedelta(days=borrower.book.borrowing_duration.duration_allowed)
             bk.available_copies = bk.available_copies - 1
             bk.save()
             stu.books_due = stu.books_due + 1
@@ -84,7 +84,7 @@ def Borrow(request, pk):
         else:
             message = "Remaining copies less than 2,reserved."
     else:
-        message = "you have exceeded limit."
+        message = "you have exceeded your borrowing limit."
     return render(request, 'management/result.html', locals())
 
 
@@ -93,30 +93,30 @@ def Borrow(request, pk):
 def returnbook(request, id):
     late_return_charge = Late_return_charge()
     if request.user.is_superuser:
+        book=None
+        student=None
         borrower = Borrower.objects.get(pk=id)
-        print(borrower)
-        book_pk = borrower.book.id
-        borrower.student.books_due = student.books_due - 1
-        print(borrower.student.books_due)
+        student=borrower.student
+        student.books_due = student.books_due - 1
         student.save()
-        book = Book.objects.get(id=book_pk)
+        book = Book.objects.get(id=borrower.book.id)
         book.available_copies = book.available_copies + 1
 
-        rating = Reviews(review="none", book=book, student=student, rating='2.5')
+        rating = Reviews(review="none", book=book, user=request.user, rating='2.5')
         rating.save()
-        book.available_copies = book.available_copies + 1
         book.save()
 
-        ret_date = borrower.return_date
+        set_return_date = borrower.return_date
         date_returned = datetime.date.today()
-        days_late = date_returned - ret_date
+        days_late = date_returned - set_return_date
+        print(days_late)
         charge = 20 * days_late.days
         # update late return charge
         late_return_charge.borrower = borrower
         late_return_charge.late_days = days_late.days
         late_return_charge.charge = charge
         borrower.delete()
-        message = "Book has been returned."
+        message = f"The {book.title} Book borrowed by {borrower.student} has been returned."
     return render(request, 'management/result.html', locals())
 
 
@@ -124,10 +124,12 @@ def returnbook(request, id):
 @login_required
 def student_BookListView(request):
     bor = Borrower.objects.filter(student=request.user.students)
-    bor_list = []
-    for b in bor:
-        bor_list.append(b)
-        print(bor)
+    print(bor)
+    books_borrowed=bor.book
+    print(books_borrowed)
+    book_list = []
+    for b in books_borrowed:
+        book_list.append(b)
     return render(request, 'management/student_book_list.html', locals())
 
 
