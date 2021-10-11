@@ -13,7 +13,7 @@ class LoginView(LoginView):
     """
     Login view for Doorstep
     """
-    template_name = 'users/auth//login.html'
+    template_name = 'users/auth/login.html'
     def get_context_data(self, **kwargs):
         next_url = self.request.GET.get('next', '')
         return super(LoginView, self).get_context_data(next_url=next_url, **kwargs)
@@ -30,6 +30,8 @@ class LoginView(LoginView):
                 pass
 
         user = authenticate(username=username, password=password)
+        request.session['student_id']=user.students.id
+        print(f"student id"+str(request.session['student_id']))
         if user is not None:
             if user.is_active:
                 login(request, user)

@@ -7,40 +7,60 @@
     {% else %}
     <h1 class="title"><strong>My Books</strong></h1>
     {% endif %}
-    {% if book_list|length > 0 %}
-    <div class="row mx-auto">
-        <div class="mx-3 col-md-4 col-lg-3 mb-4 shadow p-2 mb-4 bg-white rounded">
-            <div class="card mx-auto text-center ">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th><strong>Title</strong></th>
-                        <th><strong>Author</strong></th>
-                        <th><strong>Genre</strong></th>
-                        <th><strong>Issue date</strong></th>
-                        <th><strong>Return data</strong></th>
-                        <th><strong>Count</strong></th>
-                        <th><strong>Fine</strong></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>{{book.title}}</td>
-                        <td>{{book.author}}</td>
-                        <td>{{book.genre}}</td>
-                        <td>{{book.borrower.issue_date}}</td>
-                        <td>{{book.borrower.return_date}}</td>
-                        <td>{{book.borrower.charges.late_days}}</td>
-                        <td>{{book.borrower.charges.charge}}</td>
-                        {% if request.user.is_superuser %}
-                        <td><a href="{% url 'return-book' book.borrower.id %}" class=" px0"><i class="far fa-edit text-primary fa-lg">Return</i></a></td>
-                        {% endif %}
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+    {% if bor|length > 0 %}
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th><strong>Title</strong></th>
+            <th><strong>Author</strong></th>
+            <th><strong>Date Issued</strong></th>
+            <th><strong>Return Date</strong></th>
+            <th><strong>Late Days</strong></th>
+            <th><strong>Charge</strong></th>
+            <td><span style="color: red;text-align: center;">Countdown</span></td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for b in bor %}
+        <script>
+            function Timer(){
+        var endtime=new Date({{b.return_date|date:"U"}}*1000);
+        endtime=(Date.parse(endtime)/1000);
+        var now=new Date();
+        now=(Date.parse(now)/1000);
+        var timeleft=endtime - now;
+        var days=Math.floor(timeleft / 84600);
+        var hrs=Math.floor((timeleft -(days*84600))/3600);
+        var mins=Math.floor((timeleft -(days*84600)-(hrs*3600))/60);
+        var secs=Math.floor((timeleft -(days*84600)-(hrs*3600)-(mins*60)));
+        if(hrs < "10"){
+           hrs="0"+hrs
+        }
+        if(mins < "10"){
+           mins="0"+mins
+        }
+        if(secs < "10"){
+           secs="0"+secs
+        }
+        $('#days').html(days+"<span>:</span>");
+        $('#hrs').html(hrs+"<span>:</span>");
+        $('#mins').html(mins+"<span>:</span>");
+        $('#secs').html(secs+"");
+    }  
+    setInterval(function(){Timer();},1000); 
+    </script>
+        <tr>
+            <td>{{b.book.title}}</td>
+            <td>{{b.book.author}}</td>
+            <td>{{b.issue_date}}</td>
+            <td>{{b.return_date}}</td>
+            <td>{{b.charges.late_days}}</td>
+            <td>{{b.charges.charge}}</td>
+            <td><span id="days">:</span><span id="hrs">:</span><span id="mins">:</span><span id="secs">:</span></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% else %}
 {% if request.user.is_superuser %}

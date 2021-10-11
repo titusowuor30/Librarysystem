@@ -45,7 +45,7 @@
                         <td>{{ b.issue_date }}</td>
                         <td>{{ b.return_date }}</td>
                         <td>               
-                            <a class="btn btn-success" href="{% url 'return-book' student.id %}">Return</a>
+                            <a class="btn btn-success" href="{% url 'return-book' b.id %}">Return</a>
                         </td>
                     </tr>
                 {% endfor %}
